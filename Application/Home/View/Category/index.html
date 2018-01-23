@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+    <!--<![endif]-->
+    <!-- BEGIN HEAD -->
+    <include file="common:head" />
+    <!-- END HEAD -->
+
+    <body class="page-header-fixed page-sidebar-closed-hide-logo page-content-white">
+        <!-- BEGIN HEADER -->
+        <include file="common:header" />
+        <!-- END HEADER -->
+        <!-- BEGIN HEADER & CONTENT DIVIDER -->
+        <div class="clearfix"> </div>
+        <!-- END HEADER & CONTENT DIVIDER -->
+        <!-- BEGIN CONTAINER -->
+        <div class="page-container">
+            <!-- BEGIN SIDEBAR -->
+            <include file="common:sidebar" />
+            <!-- END SIDEBAR -->
+
+            <!-- BEGIN CONTENT -->
+            <div class="page-content-wrapper">
+                <!-- BEGIN CONTENT BODY -->
+                <div class="page-content">
+                    <!-- BEGIN PAGE HEADER-->
+                    <!-- BEGIN PAGE BAR -->
+                    <div class="page-bar">
+                        <ul class="page-breadcrumb">
+                            <li>
+                                <a href="/index">首页</a>
+                                <i class="fa fa-circle"></i>
+                                <a href="#">信息分类管理</a>
+                            </li>
+                        </ul>
+                        <div class="page-toolbar">
+                            <div id="dashboard-report-range" class="pull-right tooltips btn btn-sm" data-container="body" data-placement="bottom" data-original-title="Change dashboard date range">
+                                <i class="icon-calendar"></i>&nbsp;
+                                <span class="thin uppercase hidden-xs"></span>&nbsp;
+                                <i class="fa fa-angle-down"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END PAGE BAR -->
+                    <!-- END PAGE HEADER-->
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="btn-group" style="margin: 15px">
+                                <a href="javascript:" id="add_category" class="btn sbold green">添加分类
+                                    <i class="fa fa-plus"></i>
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12 col-sm-12">
+                            <table class="table">
+                                <tr>
+                                    <th width="50px">编号</th>
+                                    <th>名称</th>
+                                    <th>操作</th>
+                                </tr>
+                                <?php foreach ($category as $row):?>
+                                    <tr>
+                                        <td><?=$row['id']?></td>
+                                        <td><?=$row['name']?></td>
+                                        <td>
+                                            <a class="btn btn-warning" onclick="update_cate(<?=$row['id']?>,0,'<?=$row['name']?>')">修改</a>
+                                            <a class="btn btn-warning" onclick="delete_cate(<?=$row['id']?>,0,'<?=$row['name']?>')">删除</a>
+                                        </td>
+                                    </tr>
+
+                                    <?php if(!empty($row['children'])): ?>
+                                        <?php foreach ($row['children'] as $item):?>
+                                            <tr style="background: #cccccc">
+                                                <td><?=$item['id']?></td>
+                                                <td> ├├ <?=$item['name']?></td>
+                                                <td>
+                                                    <a class="btn btn-info" onclick="update_cate(<?=$item['id']?>,<?=$row['id']?>,'<?=$item['name']?>')">修改</a>
+                                                    <a class="btn btn-info" onclick="delete_cate(<?=$item['id']?>,<?=$row['id']?>,'<?=$item['name']?>')">删除</a>
+                                                </td>
+                                            </tr>
+                                            <?php if(!empty($item['children'])): ?>
+                                                <?php foreach ($item['children'] as $leaf):?>
+                                                    <tr style="background: #aaaaaa">
+                                                        <td><?=$leaf['id']?></td>
+                                                        <td> ├├├├ <?=$leaf['name']?></td>
+                                                        <td>
+                                                            <a class="btn btn-primary" onclick="update_cate(<?=$leaf['id']?>,<?=$item['id']?>,'<?=$leaf['name']?>')">修改</a>
+                                                            <a class="btn btn-primary" onclick="delete_cate(<?=$leaf['id']?>,<?=$item['id']?>,'<?=$leaf['name']?>')">删除</a>
+                                                        </td>
+                                                    </tr>
+
+                                                    <?php if(!empty($leaf['children'])): ?>
+                                                        <?php foreach ($leaf['children'] as $sub):?>
+                                                            <tr style="background: #d0b36e">
+                                                                <td><?=$sub['id']?></td>
+                                                                <td> ├├├├├├├ <?=$sub['name']?></td>
+                                                                <td>
+                                                                    <a class="btn btn-danger" onclick="update_cate(<?=$sub['id']?>,<?=$leaf['id']?>,'<?=$sub['name']?>')">修改</a>
+                                                                    <a class="btn btn-danger" onclick="delete_cate(<?=$sub['id']?>,<?=$leaf['id']?>,'<?=$sub['name']?>')">删除</a>
+                                                                </td>
+                                                            </tr>
+                                                        <?php endforeach;?>
+                                                    <?php endif; ?>
+
+                                                <?php endforeach;?>
+                                            <?php endif; ?>
+                                        <?php endforeach;?>
+                                    <?php endif; ?>
+
+                                <?php endforeach;?>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <!-- END CONTENT BODY -->
+            </div>
+            <!-- END CONTENT -->
+        </div>
+        <!-- END CONTAINER -->
+
+        <div class="modal fade add_info">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">关闭</span></button>
+                        <h4 class="modal-title">添加分类</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form id="save_form" onsubmit="return false">
+                            <div class="form-group">
+                                <label class="control-label">分类：</label>
+                                <select name="category_id" class="category_id form-control">
+                                    <option value="0">==主分类==</option>
+                                    <?php foreach ($category as $row):?>
+                                        <option value="<?=$row['id']?>"><?=$row['name']?></option>
+
+                                        <?php if(!empty($row['children'])): ?>
+                                            <?php foreach ($row['children'] as $item):?>
+                                                <option value="<?=$item['id']?>"><?=$row['name']?> >> <?=$item['name']?></option>
+
+                                                <?php if(!empty($item['children'])): ?>
+                                                    <?php foreach ($item['children'] as $leaf):?>
+                                                        <option value="<?=$leaf['id']?>"><?=$row['name']?> >> <?=$item['name']?> >> <?=$leaf['name']?> </option>
+                                                    <?php endforeach;?>
+                                                <?php endif; ?>
+                                            <?php endforeach;?>
+                                        <?php endif; ?>
+                                    <?php endforeach;?>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">名称：</label>
+                                <input type="text" class="form-control category_name" name="category_name" placeholder="请输入分类的名称" value="" />
+                            </div>
+                            <input type="hidden" name="update_id" id="update_id" value="">
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary save_category"> 保 存 </button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal"> 关 闭 </button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+
+        <!-- BEGIN FOOTER -->
+        <include file="common:footer" />
+
+    <script>
+        $("#add_category").click(function () {
+            $("#update_id").val('');
+            $(".category_id").val(0);
+            $(".category_name").val('');
+
+            $('.add_info').modal('show');
+        });
+
+        function update_cate(id,p_id,name) {
+            $(".category_id").val(p_id);
+            $("#update_id").val(id);
+            $(".category_name").val(name);
+
+            $(".modal-title").html('修改分类');
+            $('.add_info').modal('show');
+        }
+
+        //删除分类
+        function delete_cate(id,p_id,name) {
+            layer.alert('确定删除吗？', {
+                icon: 6
+                ,time: 0 //不自动关闭
+                ,btn: ['确定', '取消']
+                ,area: '200px'
+                ,yes: function(index){
+                    layer.close(index);
+                    $.post('{:U("category/ajax_delete_cate")}',{'id':id},function (res) {
+                        if(res.status == 1001){
+                            layer.alert(res.message, {
+                                icon: 6
+                                ,time: 0 //不自动关闭
+                                ,btn: ['确定']
+                                ,area: '200px'
+                                ,yes: function(index){
+                                    layer.close(index);
+                                    window.location.href="/category/index";
+                                }
+                            });
+                        }else{
+                            layer.alert(res.message, {icon: 0,time:0,closeBtn: 0});
+                        }
+                    },'json');
+                }
+                ,no: function(index){
+                    layer.close(index);
+                }
+            });
+        }
+
+        $(".save_category").click(function () {
+            if(confirm('确定提交保存吗？')){
+                var data = $("#save_form").serialize();
+                $.post('/category/ajax_save',data,function (res) {
+                    if(res.status == 1001){
+                        alert(res.message);
+                        $('.add_info').modal('hide');
+                        window.location.reload();
+                    }else{
+                        alert(res.message);
+                    }
+                },'json');
+            }
+        });
+    </script>
+    </body>
+
+</html>

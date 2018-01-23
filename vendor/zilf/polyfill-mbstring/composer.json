@@ -1,0 +1,22 @@
+{
+    "name": "zilf/polyfill-mbstring",
+    "type": "library",
+    "description": "Zilf polyfill for the Mbstring extension",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "lilei",
+            "email": "597196313@qq.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.3"
+    },
+    "autoload": {
+        "psr-4": { "Zilf\\Polyfill\\Mbstring\\": "" },
+        "files": [ "bootstrap.php" ]
+    },
+    "suggest": {
+        "ext-mbstring": "For best performance"
+    }
+}

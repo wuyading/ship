@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+    <!--<![endif]-->
+    <!-- BEGIN HEAD -->
+    <include file="common:head" />
+    <!-- END HEAD -->
+
+    <body class="page-header-fixed page-sidebar-closed-hide-logo page-content-white">
+        <!-- BEGIN HEADER -->
+        <include file="common:header" />
+        <!-- END HEADER -->
+        <!-- BEGIN HEADER & CONTENT DIVIDER -->
+        <div class="clearfix"> </div>
+        <!-- END HEADER & CONTENT DIVIDER -->
+        <!-- BEGIN CONTAINER -->
+        <div class="page-container">
+            <!-- BEGIN SIDEBAR -->
+            <include file="common:sidebar" />
+            <!-- END SIDEBAR -->
+            <!-- BEGIN CONTENT -->
+            <div class="page-content-wrapper">
+                <!-- BEGIN CONTENT BODY -->
+                <div class="page-content">
+                    <!-- BEGIN PAGE HEADER-->
+                    <!-- BEGIN PAGE BAR -->
+                    <div class="page-bar">
+                        <ul class="page-breadcrumb">
+                            <li>
+                                <a href="welcome.html">PFMEA系统管理</a>
+                                <i class="fa fa-circle"></i>
+                            </li>
+                            <li>
+                                <span>编制信息</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- END PAGE BAR -->
+                    <!-- END PAGE HEADER-->
+                    <div class="row show_print">
+                        <style>
+
+                            .page-content-wrapper .page-content{width:100%;}
+                            .table{text-align: center;font-size:12px;}
+                            .table_1{ }
+                            .table input{text-align: center}
+                            .table_2, .table_2 tr, .table_2 tr td, .table_2 tr th { border: 1px solid #000000;font-size: 12px;}
+                            .table_1 .write-textarea{background: #ddd;width:100%;height: 100%;border: none;}
+                            .table_2 .write-textarea{background: #ddd;width:105px;max-width: 105px;min-width: 105px;height: 100%;border: none;}
+                            .table_2 > tbody > tr > td, .table > tbody > tr > th, .table > tfoot > tr > td, .table > tfoot > tr > th, .table > thead > tr > td, .table > thead > tr > th{border: 1px solid #000000}
+
+                            input.write-input,.select-input{background: #ddd;height: 100%;width:100%;border: none;padding: 0}
+                            .table > tbody > tr > td, .table > tbody > tr > th, .table > tfoot > tr > td, .table > tfoot > tr > th, .table > thead > tr > td, .table > thead > tr > th{padding:1px;vertical-align:middle}
+                            .s_t{height: 30px;}
+                            .s_t td{height: 30px;}
+
+                            .select_style{width: 14px;overflow: hidden}
+                            .select_style .select-input{width: 50px;}
+
+                            select{
+                                border: none;
+                                outline: none;
+                                appearance:none;
+                                -moz-appearance:none;
+                                -webkit-appearance:none;
+                                -ms-appearance:none;
+                            }
+                            @media print {
+                                .manage_btn,.t_btn_add,.t_select_category{
+                                    display: none;
+                                }
+                                .table{border-collapse:separate}
+                                .table_1 > tbody > tr > td, .table > tbody > tr > th, .table > tfoot > tr > td, .table > tfoot > tr > th, .table > thead > tr > td, .table > thead > tr > th{border: none}
+                                .table_1 .s_line{border-bottom: 1px solid #000000}
+                                .show_print{ padding: 20px;}
+                            }
+                        </style>
+                        <form class="form-horizontal bianzhi_sub" role="form" onsubmit="return false">
+                            <!--头部信息-->
+                            <table class="table add_table table_1">
+                                <tr>
+                                    <td><img src="__PUBLIC__/cevt.png" alt=""></td>
+                                    <td colspan="19" scope="col">FMEA - Failure Mode and Effects Analysis</td>
+                                </tr>
+                                <tr class="s_t">
+                                    <td>Issuer (dept, name, phone, sign.)</td>
+                                    <td></td>
+                                    <td>Date</td>
+                                    <td colspan="2"></td>
+                                    <td>Function</td>
+                                    <td>Process layout-Issue</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>Reg No</td>
+                                    <td colspan="3"></td>
+                                    <td>Issue</td>
+                                    <td colspan="3"></td>
+                                    <td>Page</td>
+                                </tr>
+                                <tr class="s_t">
+                                    <td><input style="text-align: center" type="text" name="issuer" value="<?=$info['issuer']?>" class="write-input"/></td>
+                                    <td>&nbsp;</td>
+                                    <td><input type="text" name="date" value="<?=$info['date']?date('Y.m.d',$info['date']):'';?>" class="write-input"/></td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td><input type="text" name="function" value="<?=$info['function']?>" class="write-input"/></td>
+                                    <td><input type="text" name="layout" value="<?=$info['layout']?>" class="write-input"/></td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td><input type="text" name="reg" value="<?=$info['reg']?>" class="write-input"/></td>
+                                    <td colspan="3"></td>
+                                    <td><input type="text" name="issue" value="<?=$info['issue']?>" class="write-input"/></td>
+                                    <td colspan="3">&nbsp;</td>
+                                    <td><input type="text" name="page" value="<?=$info['page']?>" class="write-input"/></td>
+                                </tr>
+
+                                <tr class="s_t">
+                                    <td>Change Order</td>
+                                    <td></td>
+                                    <td>Part No</td>
+                                    <td colspan="2"></td>
+                                    <td>Part Name</td>
+                                    <td>Drawing No-Issue</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>Supplier</td>
+                                </tr>
+                                <tr class="s_t">
+                                    <td><input style="text-align: center" type="text" name="change" value="<?=$info['change']?>" class="write-input"/></td>
+                                    <td>&nbsp;</td>
+                                    <td><input type="text" name="part_no" value="<?=$info['part_no']?>" class="write-input"/></td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td><input type="text" name="part_name" value="<?=$info['part_name']?>" class="write-input"/></td>
+                                    <td><input type="text" name="drawing" value="<?=$info['drawing']?>" class="write-input"/></td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td><input type="text" name="supplier" value="<?=$info['supplier']?>" class="write-input"/></td>
+                                </tr>
+                            </table>
+
+                            <!--主要信息-->
+                            <table class="table add_table table_2" style="background: #FFFFFF">
+                                <tr>
+                                    <td rowspan="2" class="no_detail">No</td>
+                                    <td rowspan="2" class="type_detail">Type</td>
+                                    <td rowspan="2" class="variant_detail">Variant</td>
+                                    <td rowspan="2" class="plant_detail">Plant</td>
+                                    <td rowspan="2" class="process_detail">Process, part component-number</td>
+                                    <td rowspan="2" class="failure_detail">Potential Failure Mode</td>
+                                    <td rowspan="2" class="effect_detail">Potential Effect(s) of Failure</td>
+                                    <td rowspan="2" class="sev_detail">Sev</td>
+                                    <td rowspan="2" class="cause_detail">Potential Cause</td>
+                                    <td rowspan="2" class="occur_detail">Occur</td>
+                                    <td rowspan="2" class="class_detail">Class</td>
+                                    <td colspan="2" class="current_detail">Current Process Controls</td>
+                                    <td rowspan="2" class="detec_detail">Detec</td>
+                                    <td rowspan="2" class="rpn_detail">RPN</td>
+                                    <td rowspan="2" class="recommended_detail">Recommended Action(s)</td>
+                                    <td rowspan="2" class="responsibility_detail">Responsibility & Target Completion Date</td>
+                                    <td colspan="5" class="result_detail">Action Results</td>
+                                </tr>
+                                <tr>
+                                    <td class="prevention_detail">Prevention</td>
+                                    <td class="detection_detail">Detection</td>
+                                    <td class="a_actions_detail">ActionsTaken & Completion Date</td>
+                                    <td>Sev</td>
+                                    <td>Occur</td>
+                                    <td>Detec</td>
+                                    <td class="a_rpn_detail">RPN</td>
+                                </tr>
+                                <?php if(!empty($lists)): foreach ($lists as $key=>$row) : ?>
+                                <tr>
+                                    <td><textarea name="no[]" class="write-textarea"><?=$row['no']?></textarea></td>
+                                    <?php if($key == 0):?>
+                                    <td class="t_project" rowspan="<?=count($lists)?>"><textarea name="type" class="write-textarea"><?=$info['type']?></textarea></td>
+                                    <td class="t_project" rowspan="<?=count($lists)?>"><textarea name="variant" class="write-textarea"><?=$info['variant']?></textarea></td>
+                                    <td class="t_require" rowspan="<?=count($lists)?>"><textarea name="plant" class="write-textarea"><?=$info['plant']?></textarea></td>
+                                    <?php endif;?>
+
+                                    <?php if($key == 0):?>
+                                    <td><textarea name="process[]" class="write-textarea"><?=$row['process']?></textarea></td>
+                                    <?php elseif($_GET['type'] == 1): ?>
+                                    <td class="td_mode">
+                                        <input type="button" class="btn btn-danger btn-small delete_row" style="position: absolute;display: none;padding:0;margin:0;font-size: 10px" value="删除">
+                                        <textarea name="process[]" class="write-textarea"><?=$row['process']?></textarea>
+                                    </td>
+                                    <?php else: ?>
+                                    <td><textarea name="process[]" class="write-textarea"><?=$row['process']?></textarea></td>
+                                    <?php endif; ?>
+
+                                    <td><textarea name="failure[]" class="write-textarea"><?=$row['failure']?></textarea></td>
+                                    <td><textarea name="effect[]" class="write-textarea"><?=$row['effect']?></textarea></td>
+                                    <td>
+                                        <div class="select_style">
+                                            <select class="form-control select-input severity" name="sev[]">
+                                                <?php if(!$row['sev']):?>
+                                                <option value=""></option>
+                                                <?php endif;?>
+                                                <?php for ($i=1;$i<=10;$i++) : ?>
+                                                <option value="<?=$i?>" <?php if($i == $row['sev']){ echo 'selected';}?> ><?=$i?></option>
+                                                <?php endfor; ?>
+                                            </select>
+                                        </div>
+                                    </td>
+                                    <td><textarea name="cause[]" class="write-textarea"><?=$row['cause']?></textarea></td>
+                                    <td>
+                                        <div class="select_style">
+                                            <select class="form-control select-input incidence" name="occur[]">
+                                                <?php if(!$row['occur']):?>
+                                                <option value="<?=$row['occur']?>"></option>
+                                                <?php endif;?>
+                                                <?php for ($i=1;$i<=10;$i++) : ?>
+                                                <option value="<?=$i?>" <?php if($i == $row['occur']){ echo 'selected';}?> ><?=$i?></option>
+                                                <?php endfor; ?>
+                                            </select>
+                                        </div>
+                                    </td>
+                                    <td><textarea name="class[]" class="write-textarea"><?=$row['class']?></textarea></td>
+
+                                    <td><textarea name="prevention[]" class="write-textarea"><?=$row['prevention']?></textarea></td>
+
+                                    <td><textarea name="detection[]" class="write-textarea"><?=$row['detection']?></textarea></td>
+                                    <td>
+                                        <div class="select_style">
+                                            <select class="form-control select-input detectivity" name="detec[]">
+                                                <?php if(!$row['detec']):?>
+                                                <option value="<?=$row['detec'];?>"></option>
+                                                <?php endif;?>
+                                                <?php for ($i=1;$i<=10;$i++) : ?>
+                                                <option value="<?=$i?>" <?php if($i == $row['detec']){ echo 'selected';}?> ><?=$i?></option>
+                                                <?php endfor; ?>
+                                            </select>
+                                        </div>
+                                    </td>
+                                    <td><textarea name="rpn[]" class="write-textarea RPN"><?=$row['rpn']?></textarea></td>
+                                    <td><textarea name="recommended[]" class="write-textarea"><?=$row['recommended']?></textarea></td>
+                                    <td><textarea name="responsibility[]" class="write-textarea"><?=$row['responsibility']?date('Y.m.d',$row['responsibility']):'';?></textarea></td>
+                                    <td><textarea name="a_actions[]" class="write-textarea"><?=$row['a_actions']?date('Y.m.d',$row['a_actions']):'';?></textarea></td>
+                                    <td>
+                                        <div class="select_style">
+                                            <select class="form-control select-input t_severity" name="a_sev[]">
+                                                <?php if(!$row['a_sev']):?>
+                                                <option value=""></option>
+                                                <?php endif;?>
+                                                <?php for ($i=1;$i<=10;$i++) : ?>
+                                                <option value="<?=$i?>" <?php if($i == $row['a_sev']){ echo 'selected';}?> ><?=$i?></option>
+                                                <?php endfor; ?>
+                                            </select>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="select_style">
+                                            <select class="form-control select-input t_incidence" name="a_occur[]">
+                                                <?php if(!$row['a_occur']):?>
+                                                <option value=""></option>
+                                                <?php endif;?>
+                                                <?php for ($i=1;$i<=10;$i++) : ?>
+                                                <option value="<?=$i?>" <?php if($i == $row['a_occur']){ echo 'selected';}?> ><?=$i?></option>
+                                                <?php endfor; ?>
+                                            </select>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="select_style">
+                                            <select class="form-control select-input t_detectivity" name="a_detec[]">
+                                                <?php if(!$row['a_detec']):?>
+                                                <option value=""></option>
+                                                <?php endif;?>
+                                                <?php for ($i=1;$i<=10;$i++) : ?>
+                                                <option value="<?=$i?>" <?php if($i == $row['a_detec']){ echo 'selected';}?> ><?=$i?></option>
+                                                <?php endfor; ?>
+                                            </select>
+                                        </div>
+                                    </td>
+                                    <td><textarea name="a_rpn[]" class="write-textarea t_RPN"><?=$row['a_rpn']?></textarea></td>
+                                </tr>
+                                <?php endforeach;?>
+                                <?php endif;?>
+
+                                <?php if($_GET['type'] == 1): ?>
+                                <tr class="t_btn_add" style="height:30px;">
+                                    <td colspan="22">
+                                    </td>
+                                </tr>
+                                <?php endif;?>
+                                <tr class="t_select_category">
+                                    <td>分类:</td>
+                                    <td colspan="22">
+                                        <div class="pull-left">
+                                            <input type="text" value=<?=$names['first']?> >
+                                            <input type="text" value=<?=$names['second']?> >
+                                            <input type="text" value=<?=$names['third']?> >
+                                        </div>
+                                    </td>
+                                </tr>
+                                <?php if($info['is_approved'] == 1): ?>
+                                <tr class="manage_btn">
+                                    <td colspan="22">
+                                        <!--<input type="submit" class="btn btn-lg btn-primary btn-print" value="打印页面">-->
+                                        <div>
+                                            <a class="btn btn-primary" id="approve_pass" href="javascript:">审批编制</a>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <?php endif;?>
+                            </table>
+                            <input type="hidden" name="id" value="<?=$_GET['id']?>">
+                        </form>
+                    </div>
+                </div>
+                <!-- END CONTENT BODY -->
+            </div>
+            <!-- END CONTENT -->
+        </div>
+
+        <!--弹窗 批量导入 -->
+        <div class="modal fade input_win" data-backdrop="static">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">关闭</span></button>
+                        <h4 class="modal-title">审批编制</h4>
+                    </div>
+                    <form class="img_post" action="" method="post" onclick="false">
+                        <div class="modal-body">
+                            <div style="margin-top: 15px;">
+                                <div class="form-inline">
+
+                                </div>
+                                <div class="form-group">
+                                    <label>备注：</label>
+                                    <textarea id="remake" name="remake" cols="30" rows="2" style="border: 1px solid;"></textarea>
+                                    <ul id="advice" style="display:none;list-style:none;margin-left:46px;margin-top:-10px;border-left:1px solid gray;border-right:1px solid gray;border-bottom:1px solid gray;">
+                                        <li style="margin-left:-40px;padding:10px;font-size: 18px;">同意</li>
+                                        <li style="margin-left:-40px;padding:10px;font-size: 18px;">修改</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary import_btn" id="pass_approve"> 审批通过 </button>
+                            <button type="button" class="btn btn-danger" data-dismiss="modal" id="refuse_approve"> 审批驳回 </button>
+                        </div>
+                    </form>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+
+        <!-- END CONTAINER -->
+        <include file="common:footer" />
+
+        <script type="text/javascript">
+            $("#remake").focus(function(){
+                $("#advice").fadeToggle();
+                $("#advice").css('width',$(this).width()+5);
+                $("#advice li").mousemove(function(){
+                    $(this).css('background','#DCDCDC');
+                });
+                $("#advice li").mouseleave(function(){
+                    $(this).css('background','');
+                });
+                $("#advice li").click(function(){
+                    $("#remake").val($(this).text());
+                });
+            });
+            $("#remake").blur(function(){
+                $("#advice li").mousemove(function(){
+                    $(this).css('background','#DCDCDC');
+                });
+                $("#advice li").mouseleave(function(){
+                    $(this).css('background','');
+                });
+                $("#advice li").click(function(){
+                    $("#remake").val($(this).text());
+                });
+                $("#advice").fadeToggle();
+            });
+        </script>
+
+        <script src="__PUBLIC__/assets/jquery.jqprint-0.3.js"></script>
+        <script>
+            $("input").attr("disabled",true);
+            $("textarea").attr("readonly",true);
+            $("select").attr("disabled","disabled");
+
+            $(".btn-print").attr("disabled",false);
+            jQuery.uaMatch = function( ua ) {
+                ua = ua.toLowerCase();
+
+                var match = /(chrome)[ \/]([\w.]+)/.exec( ua ) ||
+                    /(webkit)[ \/]([\w.]+)/.exec( ua ) ||
+                    /(opera)(?:.*version|)[ \/]([\w.]+)/.exec( ua ) ||
+                    /(msie)[\s?]([\w.]+)/.exec( ua ) ||
+                    /(trident)(?:.*? rv:([\w.]+)|)/.exec( ua ) ||
+                    ua.indexOf("compatible") < 0 && /(mozilla)(?:.*? rv:([\w.]+)|)/.exec( ua ) ||
+                    [];
+
+                return {
+                    browser: match[ 1 ] || "",
+                    version: match[ 2 ] || "0"
+                };
+            };
+
+            matched = jQuery.uaMatch( navigator.userAgent );
+            //IE 11+ fix (Trident)
+            matched.browser = matched.browser == 'trident' ? 'msie' : matched.browser;
+            browser = {};
+
+            if ( matched.browser ) {
+                browser[ matched.browser ] = true;
+                browser.version = matched.version;
+            }
+
+            // Chrome is Webkit, but Webkit is also Safari.
+            if ( browser.chrome ) {
+                browser.webkit = true;
+            } else if ( browser.webkit ) {
+                browser.safari = true;
+            }
+
+            jQuery.browser = browser;
+
+            $(".btn-print").click(function () {
+                $('.show_print').jqprint();
+            });
+
+        <?php
+            $num = empty($lists) ? 0 : count($lists);
+        ?>
+
+        var num = <?=$num?>;
+
+        //
+        $(".add_table").delegate('.td_mode','mouseover',function () {
+            $(this).find('.delete_row').show();
+        });
+        $(".add_table").delegate('.td_mode','mouseout',function () {
+            $(this).find('.delete_row').hide();
+        });
+
+        //
+        $(".add_table").delegate('.delete_row','click',function () {
+            if(num > 0){
+                num-=1;
+                $(".t_project").attr('rowspan',num);
+                $(".t_require").attr('rowspan',num);
+            }
+            $(this).parent().parent().remove();
+        });
+
+        //计算RPN  incidence detectivity  RPN
+        $(".add_table").delegate('.severity','change',function () {
+            jisuan($(this));
+        });
+        $(".add_table").delegate('.incidence','change',function () {
+            jisuan($(this));
+        });
+        $(".add_table").delegate('.detectivity','change',function () {
+            jisuan($(this));
+        });
+
+        //计算t_RPN  t_incidence t_detectivity  t_RPN
+        $(".add_table").delegate('.t_severity','change',function () {
+            jisuan2($(this));
+        });
+        $(".add_table").delegate('.t_incidence','change',function () {
+            jisuan2($(this));
+        });
+        $(".add_table").delegate('.t_detectivity','change',function () {
+            jisuan2($(this));
+        });
+
+        function jisuan(obj) {
+            var parent_obj = obj.parent().parent().parent();
+
+            var severity_val = parent_obj.find('.severity').val();
+            var incidence_val = parent_obj.find('.incidence').val();
+            var detectivity_val = parent_obj.find('.detectivity').val();
+
+            var result = severity_val*incidence_val*detectivity_val;
+            parent_obj.find('.RPN').val(result);
+        }
+
+        function jisuan2(obj) {
+            var parent_obj = obj.parent().parent().parent();
+
+            var severity_val = parent_obj.find('.t_severity').val();
+            var incidence_val = parent_obj.find('.t_incidence').val();
+            var detectivity_val = parent_obj.find('.t_detectivity').val();
+
+            var result = severity_val*incidence_val*detectivity_val;
+            parent_obj.find('.t_RPN').val(result);
+        }
+    </script>
+        <script type="text/javascript">
+            $("#approve_pass").click(function () {
+                $('#remake').val('');
+                $("#remake").attr("readonly",false);
+                $(".input_win").modal('show');
+            });
+            $("#pass_approve").click(function(){
+                var id = "<?=$_GET['id']?>";
+                var remake = $('#remake').serialize();
+                $.post('/index/ajax_detail_pass_cevt','id='+id+'&'+remake,function (res) {
+                    if(res.status == 1001){
+                        $(".input_win").modal('hide');
+                        alert(res.message);
+                        window.location.href = "/index/info_approve_cevt?type=2";
+                    }else{
+                        alert(res.message);
+                    }
+                },'json');
+            });
+            $("#refuse_approve").click(function(){
+                var id = "<?=$_GET['id']?>";
+                var remake = $('#remake').serialize();
+                $.post('/index/ajax_detail_refuse_cevt','id='+id+'&'+remake,function (res) {
+                    if(res.status == 1001){
+                        $(".input_win").modal('hide');
+                        alert(res.message);
+                        window.location.href = '/index/info_approve_cevt?type=4';
+                    }else{
+                        alert(res.message);
+                    }
+                },'json');
+            });
+        </script>
+    </body>
+
+</html>

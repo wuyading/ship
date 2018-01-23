@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+    <!--<![endif]-->
+    <!-- BEGIN HEAD -->
+    <include file="common:head" />
+    <!-- END HEAD -->
+
+    <body class="page-header-fixed page-sidebar-closed-hide-logo page-content-white">
+        <!-- BEGIN HEADER -->
+        <include file="common:header" />
+        <!-- END HEADER -->
+        <!-- BEGIN HEADER & CONTENT DIVIDER -->
+        <div class="clearfix"> </div>
+        <!-- END HEADER & CONTENT DIVIDER -->
+        <!-- BEGIN CONTAINER -->
+        <div class="page-container">
+            <!-- BEGIN SIDEBAR -->
+            <include file="common:sidebar" />
+            <!-- END SIDEBAR -->
+
+            <!-- BEGIN CONTENT -->
+            <div class="page-content-wrapper">
+                <!-- BEGIN CONTENT BODY -->
+                <div class="page-content">
+                    <!-- BEGIN PAGE HEADER-->
+                    <!-- BEGIN PAGE BAR -->
+                    <div class="page-bar">
+                        <ul class="page-breadcrumb">
+                            <li>
+                                <a href="/index">首页</a>
+                                <i class="fa fa-circle"></i>
+                                <a href="#">修改密码</a>
+                            </li>
+                        </ul>
+                        <div class="page-toolbar">
+                            <div id="dashboard-report-range" class="pull-right tooltips btn btn-sm" data-container="body" data-placement="bottom" data-original-title="Change dashboard date range">
+                                <i class="icon-calendar"></i>&nbsp;
+                                <span class="thin uppercase hidden-xs"></span>&nbsp;
+                                <i class="fa fa-angle-down"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END PAGE BAR -->
+                    <!-- END PAGE HEADER-->
+                    <div class="row">
+                        <div class="col-md-8 col-sm-8">
+                            <form id="pwd_form" method="post" onsubmit="return false">
+                                <table class="table">
+                                    <tr>
+                                        <th>旧密码：</th>
+                                        <td><input type="password" name="oldpwd" required></td>
+                                    </tr>
+                                    <tr>
+                                        <th>新密码：</th>
+                                        <td><input type="password" name="newpwd" required></td>
+                                    </tr>
+                                    <tr>
+                                        <th>确认新密码：</th>
+                                        <td><input type="password" name="ensurpwd" required></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2" style="text-align: center">
+                                            <input type="submit" class="btn btn-primary save_pwd"  value="保 存">
+                                        </td>
+                                    </tr>
+                                </table>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <!-- END CONTENT BODY -->
+            </div>
+            <!-- END CONTENT -->
+        </div>
+        <!-- END CONTAINER -->
+
+        <!-- BEGIN FOOTER -->
+        <include file="common:footer" />
+
+    <script>
+        $(".save_pwd").click(function () {
+            if(confirm('确定提交吗？')){
+                var data = $("#pwd_form").serialize();
+                $.post('/member/ajax_save_pwd',data,function (res) {
+                    if(res.status == 1001){
+                        alert(res.message);
+                    }else{
+                        alert(res.message);
+                    }
+                },'json');
+            }
+        });
+    </script>
+    </body>
+
+</html>

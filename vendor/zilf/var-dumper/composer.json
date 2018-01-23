@@ -1,0 +1,24 @@
+{
+    "name": "Zilf/var-dumper",
+    "type": "library",
+    "description": "Zilf mechanism for exploring and dumping PHP variables",
+    "keywords": ["dump", "debug"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "lilei",
+            "email": "597196313@qq.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.5.9",
+        "zilf/polyfill-mbstring": "~1.0"
+    },
+    "autoload": {
+        "files": [ "Resources/functions/dump.php" ],
+        "psr-4": { "Zilf\\VarDumper\\": "" },
+        "exclude-from-classmap": [
+            "/Tests/"
+        ]
+    }
+}

@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+    <!--<![endif]-->
+    <!-- BEGIN HEAD -->
+    <include file="common:head" />
+    <!-- END HEAD -->
+    <link rel="stylesheet" href="/Public/ztree/css/zTreeStyle/zTreeStyle.css" type="text/css">
+    <link href="__PUBLIC__/assets/global/plugins/select2/css/select2.min.css" rel="stylesheet" type="text/css" />
+    <link href="__PUBLIC__/assets/global/plugins/select2/css/select2-bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <style>
+        .ztree *{font-size: 18px;}
+        .ztree li a{line-height:30px;height: 30px;}
+        .ztree li span.button.add {
+            background-position: -144px 0;
+            margin-left: 2px;
+            margin-right: -1px;
+            vertical-align: top;
+        }
+        .ztree li a.curSelectedNode{line-height: 30px; height: 30px}
+        .ztree li span.button{margin-top: 7px;}
+        .ztree li a input.rename {  height: 26px;font-size: 14px;  }
+        .zTreeDemoBackground{border: 1px solid #AAAAAA;padding: 15px 0;}
+    </style>
+
+    <body class="page-header-fixed page-sidebar-closed-hide-logo page-content-white">
+        <!-- BEGIN HEADER -->
+        <include file="common:header" />
+        <!-- END HEADER -->
+        <!-- BEGIN HEADER & CONTENT DIVIDER -->
+        <div class="clearfix"> </div>
+        <!-- END HEADER & CONTENT DIVIDER -->
+        <!-- BEGIN CONTAINER -->
+        <div class="page-container">
+            <!-- BEGIN SIDEBAR -->
+            <include file="common:sidebar" />
+            <!-- END SIDEBAR -->
+
+            <!-- BEGIN CONTENT -->
+            <div class="page-content-wrapper">
+                <!-- BEGIN CONTENT BODY -->
+                <div class="page-content">
+                    <!-- BEGIN PAGE HEADER-->
+                    <!-- BEGIN PAGE BAR -->
+                    <div class="page-bar">
+                        <ul class="page-breadcrumb">
+                            <li>
+                                <a href="/index">首页</a>
+                                <i class="fa fa-circle"></i>
+                                <a href="#">人员关系管理</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- END PAGE BAR -->
+                    <!-- END PAGE HEADER-->
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12">
+                            <div class="zTreeDemoBackground left">
+                                <ul id="treeDemo" class="ztree"></ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- END CONTENT BODY -->
+            </div>
+            <!-- END CONTENT -->
+        </div>
+        <!-- END CONTAINER -->
+
+
+        <div class="modal fade add_user">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">关闭</span></button>
+                        <h4 class="modal-title">选择用户</h4>
+                    </div>
+                    <div class="modal-body">
+                        <style>
+                            .select2-container{z-index: 19999;}
+                        </style>
+                        <form id="user_form" method="post" onsubmit="return false">
+                            <div class="">
+                                <select id="select2-multiple-input-lg" name="users[]" class="form-control input-lg select2-multiple" multiple>
+                                    <?php foreach ($user_list as $row) : ?>
+                                        <option value="<?=$row['username']?>_<?=$row['id']?>">
+                                            <?=$row['username']?>
+                                        </option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary save_user"> 保 存 </button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal"> 关 闭 </button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /添加用户的modal -->
+
+
+
+        <!-- BEGIN FOOTER -->
+        <include file="common:footer" />
+        <script src="__PUBLIC__/assets/global/plugins/select2/js/select2.full.min.js" type="text/javascript"></script>
+        <script src="__PUBLIC__/assets/pages/scripts/components-select2.min.js" type="text/javascript"></script>
+        <script src="__PUBLIC__/ztree/js/jquery.ztree.all.min.js" type="text/javascript"></script>
+
+        <script type="text/javascript">
+            $(".btn-default").click(function(){
+                window.location.reload();
+            })
+        </script>
+        <script type="text/javascript">
+            $(".close").click(function(){
+                window.location.reload();
+            })
+        </script>
+
+        <script type="text/javascript">
+            <!--
+            var tree_id_obj;
+            var tree_node_obj;
+
+            var setting = {
+                view: {
+                    addHoverDom: addHoverDom,
+                    removeHoverDom: removeHoverDom,
+                    //showIcon: showIconForTree,
+                    selectedMulti: false
+                },
+                edit: {
+                    enable: true,
+                    editNameSelectAll: true,
+                    showRemoveBtn: showRemoveBtn,
+                    showRenameBtn: showRenameBtn
+                },
+                data: {
+                    simpleData: {
+                        enable: true
+                    }
+                },
+                callback: {
+                    beforeEditName: beforeEditName,
+                    beforeRemove: beforeRemove,
+                    beforeRename: beforeRename,
+                    onRemove: onRemove,
+                    onRename: onRename
+                }
+            };
+
+            var zNodes =<?=$category_json?>;
+            var log, className = "dark";
+            function beforeDrag(treeId, treeNodes) {
+                return false;
+            }
+            function showIconForTree(treeId, treeNode) {
+                return false;
+            };
+            function beforeEditName(treeId, treeNode) {
+                className = (className === "dark" ? "":"dark");
+                showLog("[ "+getTime()+" beforeEditName ]&nbsp;&nbsp;&nbsp;&nbsp; " + treeNode.name);
+                var zTree = $.fn.zTree.getZTreeObj("treeDemo");
+                zTree.selectNode(treeNode);
+                setTimeout(function() {
+                    layer.alert("进入节点 -- " + treeNode.name + " 的编辑状态吗？", {
+                        icon: 6
+                        ,time: 0 //不自动关闭
+                        ,btn: ['确定', '取消']
+                        ,area: '200px'
+                        ,yes: function(index){
+                            layer.close(index);
+                            setTimeout(function() {
+                                zTree.editName(treeNode);
+                            }, 0);
+                        }
+                        ,no: function(index){
+                            layer.close(index);
+                        }
+                    });
+                }, 0);
+                return false;
+            }
+            function beforeRemove(treeId, treeNode) {
+                className = (className === "dark" ? "":"dark");
+                showLog("[ "+getTime()+" beforeRemove ]&nbsp;&nbsp;&nbsp;&nbsp; " + treeNode.name);
+                var zTree = $.fn.zTree.getZTreeObj("treeDemo");
+                zTree.selectNode(treeNode);
+                return confirm("确认删除 节点 -- " + treeNode.name + " 吗？");
+            }
+            function onRemove(e, treeId, treeNode) {
+                showLog("[ "+getTime()+" onRemove ]&nbsp;&nbsp;&nbsp;&nbsp; " + treeNode.name);
+                $.post('{:U("relation/ajax_delete")}',{'id':treeNode.id},function (res) {
+                    if(res.status == 1001){
+                        layer.alert(res.message, {
+                            icon: 6
+                            ,time: 0 //不自动关闭
+                            ,btn: ['确定']
+                            ,area: '200px'
+                            ,yes: function(index){
+                                layer.close(index);
+                                is_succ = true;
+                            }
+                        });
+                    }else{
+                        layer.alert(res.message, {icon: 0,time:0,closeBtn: 0});
+                        is_succ = false;
+                    }
+                },'json');
+            }
+            function beforeRename(treeId, treeNode, newName, isCancel) {
+                return true;
+            }
+            function onRename(e, treeId, treeNode, isCancel) {
+                showLog((isCancel ? "<span style='color:red'>":"") + "[ "+getTime()+" onRename ]&nbsp;&nbsp;&nbsp;&nbsp; " + treeNode.name + (isCancel ? "</span>":""));
+            }
+            function showRemoveBtn(treeId, treeNode) {
+                if(treeNode.id == 1){
+                    return false;
+                }else{
+                    return true;
+                }
+                //return !treeNode.isFirstNode;
+            }
+            function showRenameBtn(treeId, treeNode) {
+                return false;
+            }
+            function showLog(str) {
+                if (!log) log = $("#log");
+                log.append("<li class='"+className+"'>"+str+"</li>");
+                if(log.children("li").length > 8) {
+                    log.get(0).removeChild(log.children("li")[0]);
+                }
+            }
+            function getTime() {
+                var now= new Date(),
+                    h=now.getHours(),
+                    m=now.getMinutes(),
+                    s=now.getSeconds(),
+                    ms=now.getMilliseconds();
+                return (h+":"+m+":"+s+ " " +ms);
+            }
+
+            var newCount = 1;
+            function addHoverDom(treeId, treeNode) {
+                var sObj = $("#" + treeNode.tId + "_span");
+                if (treeNode.editNameFlag || $("#addBtn_"+treeNode.tId).length>0) return;
+                var addStr = "<span class='button add' id='addBtn_" + treeNode.tId
+                    + "' title='add node' onfocus='this.blur();'></span>";
+                sObj.after(addStr);
+                var btn = $("#addBtn_"+treeNode.tId);
+
+                if (btn) btn.bind("click", function(){
+                    tree_node_obj = treeNode;
+                    if(treeNode.level == 2){
+                        layer.alert('不允许添加子节点,只支持二级权限审核！', {icon: 0,time:0,closeBtn: 0});
+                    }else{
+                        $(".add_user").modal('show');
+                    }
+                    return false;
+                });
+            };
+            function removeHoverDom(treeId, treeNode) {
+                $("#addBtn_"+treeNode.tId).unbind().remove();
+            };
+            function selectAll() {
+                var zTree = $.fn.zTree.getZTreeObj("treeDemo");
+                zTree.setting.edit.editNameSelectAll =  $("#selectAll").attr("checked");
+            }
+
+            $(document).ready(function(){
+                $.fn.zTree.init($("#treeDemo"), setting, zNodes);
+                $("#selectAll").bind("click", selectAll);
+            });
+            //-->
+        </script>
+        <script type="text/javascript">
+            $(".save_user").click(function () {
+                var data = $("#user_form").serialize();
+                data += '&pid='+tree_node_obj.id+'&level='+tree_node_obj.level;
+
+                $.post('{:U("relation/ajax_save_add")}',data,function (res) {
+                    if(res.status == 1001){
+                        var users = res.data;
+                        var zTree = $.fn.zTree.getZTreeObj("treeDemo");
+                        for( var i in users){
+                            zTree.addNodes(tree_node_obj, {id:users[i]['id'], pId:tree_node_obj.id, name:users[i]['name']});
+                        }
+                        window.location.reload();
+                    }else{
+                        layer.alert(res.message, {icon: 0,time:0,closeBtn: 0});
+                    }
+                },'json');
+            });
+        </script>
+    </body>
+
+</html>

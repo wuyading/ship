@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+    <!--<![endif]-->
+    <!-- BEGIN HEAD -->
+    <include file="common:head" />
+    <!-- END HEAD -->
+
+    <body class="page-header-fixed page-sidebar-closed-hide-logo page-content-white">
+        <!-- BEGIN HEADER -->
+        <include file="common:header" />
+        <!-- END HEADER -->
+        <!-- BEGIN HEADER & CONTENT DIVIDER -->
+        <div class="clearfix"> </div>
+        <!-- END HEADER & CONTENT DIVIDER -->
+        <!-- BEGIN CONTAINER -->
+        <div class="page-container">
+            <!-- BEGIN SIDEBAR -->
+            <include file="common:sidebar" />
+            <!-- END SIDEBAR -->
+
+            <!-- BEGIN CONTENT -->
+            <div class="page-content-wrapper">
+                <!-- BEGIN CONTENT BODY -->
+                <div class="page-content">
+                    <!-- BEGIN PAGE HEADER-->
+                    <!-- BEGIN PAGE BAR -->
+                    <div class="page-bar">
+                        <ul class="page-breadcrumb">
+                            <li>
+                                <a href="index.html">首页</a>
+                            </li>
+                        </ul>
+                        <div class="page-toolbar">
+                            <div id="dashboard-report-range" class="pull-right tooltips btn btn-sm" data-container="body" data-placement="bottom" data-original-title="Change dashboard date range">
+                                <i class="icon-calendar"></i>&nbsp;
+                                <span class="thin uppercase hidden-xs"></span>&nbsp;
+                                <i class="fa fa-angle-down"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END PAGE BAR -->
+                    <!-- END PAGE HEADER-->
+                    <div class="row">
+                        <div class="col-md-6 col-sm-6" style="border-right: 2px dashed dimgrey">
+                            <!-- BEGIN PORTLET-->
+                            <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+                            <h4 style="text-align: center">编制进度</h4>
+                            <div id="main" style="width: 600px;height:400px;"></div>
+                            <script type="text/javascript">
+                                // 基于准备好的dom，初始化echarts实例
+                                var myChart = echarts.init(document.getElementById('main'));
+
+                                // 指定图表的配置项和数据
+                                option = {
+                                    tooltip : {
+                                        trigger: 'item',
+                                        formatter: "{a} <br/>{b} : {c} ({d}%)"
+                                    },
+                                    legend: {
+                                        orient: 'vertical',
+                                        left: 'left',
+                                        data: ['编制工序数量','未完成PFMEA工序数量']
+                                    },
+                                    series : [
+                                        {
+                                            name: '数量',
+                                            type: 'pie',
+                                            radius : '55%',
+                                            center: ['50%', '60%'],
+                                            data:[
+                                                {value:535, name:'编制工序数量'},
+                                                {value:110, name:'未完成PFMEA工序数量'}
+                                            ],
+                                            itemStyle: {
+                                                emphasis: {
+                                                    shadowBlur: 10,
+                                                    shadowOffsetX: 0,
+                                                    shadowColor: 'rgba(0, 0, 0, 0.5)'
+                                                }
+                                            }
+                                        }
+                                    ]
+                                };
+
+                                // 使用刚指定的配置项和数据显示图表。
+                                myChart.setOption(option);
+                            </script>
+                            <!-- END PORTLET-->
+                        </div>
+
+                        <div class="col-md-6 col-sm-6">
+                            <!-- BEGIN PORTLET-->
+                            <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+                            <h4 style="text-align: center">关键工序RPN平均值</h4>
+                            <div id="main4" style="width: 600px;height:400px;"></div>
+                            <script type="text/javascript">
+                                var myChart4 = echarts.init(document.getElementById('main4'));
+
+                                function randomData() {
+                                    now = new Date(+now + oneDay);
+                                    value = value + Math.random() * 21 - 10;
+                                    return {
+                                        name: now.toString(),
+                                        value: [
+                                            [now.getFullYear(), now.getMonth() + 1, now.getDate()].join('/'),
+                                            Math.round(value)
+                                        ]
+                                    }
+                                }
+
+                                var data = [];
+                                var now = +new Date(1997, 9, 3);
+                                var oneDay = 24 * 3600 * 1000;
+                                var value = Math.random() * 1000;
+                                for (var i = 0; i < 1000; i++) {
+                                    data.push(randomData());
+                                }
+
+                                option = {
+                                    tooltip : {
+                                        trigger: 'item',
+                                        formatter: '{a} <br/>{b} : {c}'
+                                    },
+                                    legend: {
+                                        left: 'left',
+                                        data: ['RPN平均值']
+                                    },
+                                    xAxis: {
+                                        type : 'category',
+                                        data : ['杭州湾','春晓','宝鸡','临海','晋中','湘潭','贵阳']
+                                    },
+                                    yAxis: {
+                                        type: 'value',
+                                        boundaryGap: [0, '100%'],
+                                        splitLine: {
+                                            show: false
+                                        }
+                                    },
+                                    series: [
+                                        {
+                                            name: 'RPN平均值',
+                                            type: 'line',
+                                            data: [1150, 2320, 7981, 2247, 2741, 3223, 5669]
+                                        }
+                                    ]
+                                };
+
+                                /*setInterval(function () {
+
+                                    for (var i = 0; i < 5; i++) {
+                                        data.shift();
+                                        data.push(randomData());
+                                    }
+
+                                    myChart4.setOption({
+                                        series: [{
+                                            data: data
+                                        }]
+                                    });
+                                }, 1000);*/
+                                myChart4.setOption(option);
+                            </script>
+                            <!-- END PORTLET-->
+                        </div>
+                    </div>
+                    <div class="row" style="border-top: 2px dashed dimgrey">
+                        <div class="col-md-6 col-sm-6" style="border-right: 2px dashed dimgrey">
+                            <!-- BEGIN PORTLET-->
+                            <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+                            <h4 style="text-align: center;margin-top: 30px;">超标RPN工序数量</h4>
+                            <div id="main3" style="width: 600px;height:400px;"></div>
+                            <script type="text/javascript">
+                                var myChart3 = echarts.init(document.getElementById('main3'));
+                                myChart3.title = '堆叠柱状图';
+
+                                option = {
+                                    tooltip : {
+                                        trigger: 'axis',
+                                        axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+                                            type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                                        }
+                                    },
+                                    legend: {
+                                        data:['EF-5','FE-7','KC-3','VF11','SX11']
+                                    },
+                                    grid: {
+                                        left: '3%',
+                                        right: '4%',
+                                        bottom: '3%',
+                                        containLabel: true
+                                    },
+                                    xAxis : [
+                                        {
+                                            type : 'category',
+                                            data : ['杭州湾','春晓','宝鸡','临海','晋中','湘潭','贵阳']
+                                        }
+                                    ],
+                                    yAxis : [
+                                        {
+                                            type : 'value'
+                                        }
+                                    ],
+                                    series : [
+                                        {
+                                            name:'EF-5',
+                                            type:'bar',
+                                            data:[120, 332, 101, 304, 290, 130, 320]
+                                        },
+                                        {
+                                            name:'FE-7',
+                                            type:'bar',
+                                            stack: '广告',
+                                            data:[320, 132, 201, 334, 90, 230, 210]
+                                        },
+                                        {
+                                            name:'KC-3',
+                                            type:'bar',
+                                            stack: '广告',
+                                            data:[120, 282, 191, 234, 190, 130, 110]
+                                        },
+                                        {
+                                            name:'VF11',
+                                            type:'bar',
+                                            stack: '广告',
+                                            data:[350, 232, 1001, 954, 190, 330, 410]
+                                        },
+                                        {
+                                            name:'SX11',
+                                            type:'bar',
+                                            data:[262, 218, 964, 226, 1679, 300, 570],
+                                            markLine : {
+                                                lineStyle: {
+                                                    normal: {
+                                                        type: 'dashed'
+                                                    }
+                                                },
+                                                data : [
+                                                    [{type : 'min'}, {type : 'max'}]
+                                                ]
+                                            }
+                                        }
+                                    ]
+                                };
+
+                                myChart3.setOption(option);
+                            </script>
+                            <!-- END PORTLET-->
+                        </div>
+
+                        <div class="col-md-6 col-sm-6">
+                            <!-- BEGIN PORTLET-->
+                            <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+                            <h4 style="text-align: center;margin-top: 30px;">RPN降低工序数量</h4>
+                            <div id="main2" style="width: 600px;height:400px;"></div>
+                            <script type="text/javascript">
+                                var myChart2 = echarts.init(document.getElementById('main2'));
+                                myChart2.title = '堆叠柱状图';
+
+                                option = {
+                                    tooltip : {
+                                        trigger: 'axis',
+                                        axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+                                            type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                                        }
+                                    },
+                                    legend: {
+                                        data:['EF-5','FE-7','KC-3','VF11','SX11']
+                                    },
+                                    grid: {
+                                        left: '3%',
+                                        right: '4%',
+                                        bottom: '3%',
+                                        containLabel: true
+                                    },
+                                    xAxis : [
+                                        {
+                                            type : 'category',
+                                            data : ['杭州湾','春晓','宝鸡','临海','晋中','湘潭','贵阳']
+                                        }
+                                    ],
+                                    yAxis : [
+                                        {
+                                            type : 'value'
+                                        }
+                                    ],
+                                    series : [
+                                        {
+                                            name:'EF-5',
+                                            type:'bar',
+                                            data:[320, 332, 301, 334, 390, 330, 320]
+                                        },
+                                        {
+                                            name:'FE-7',
+                                            type:'bar',
+                                            stack: '广告',
+                                            data:[120, 132, 501, 134, 90, 230, 210]
+                                        },
+                                        {
+                                            name:'KC-3',
+                                            type:'bar',
+                                            stack: '广告',
+                                            data:[220, 182, 991, 234, 290, 330, 310]
+                                        },
+                                        {
+                                            name:'VF11',
+                                            type:'bar',
+                                            stack: '广告',
+                                            data:[150, 232, 101, 154, 190, 330, 410]
+                                        },
+                                        {
+                                            name:'SX11',
+                                            type:'bar',
+                                            data:[862, 318, 964, 1026, 679, 100, 1570],
+                                            markLine : {
+                                                lineStyle: {
+                                                    normal: {
+                                                        type: 'dashed'
+                                                    }
+                                                },
+                                                data : [
+                                                    [{type : 'min'}, {type : 'max'}]
+                                                ]
+                                            }
+                                        }
+                                    ]
+                                };
+
+                                myChart2.setOption(option);
+                            </script>
+                            <!-- END PORTLET-->
+                        </div>
+                    </div>
+                </div>
+                <!-- END CONTENT BODY -->
+            </div>
+            <!-- END CONTENT -->
+        </div>
+        <!-- END CONTAINER -->
+        <!-- BEGIN FOOTER -->
+        <include file="common:footer" />
+    </body>
+
+</html>
