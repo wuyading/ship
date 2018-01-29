@@ -16,246 +16,23 @@
                     <span class="selected"></span>
                 </a>
             </li>
-
-            <!-- PFMEA系统管理 -->
-            <li class="nav-item <if condition="($Think.const.CONTROLLER_NAME eq 'Template') || ($Think.const.ACTION_NAME eq 'info_ku')
-            || ($Think.const.ACTION_NAME eq 'info_ku_current')
-            || ($Think.const.ACTION_NAME eq 'info_ku_current_cevt')
-            || ($Think.const.ACTION_NAME eq 'info_ku_history')
-            || ($Think.const.ACTION_NAME eq 'info_ku_history_cevt')
-            || ($Think.const.ACTION_NAME eq 'add')
-            || ($Think.const.ACTION_NAME eq 'add_cevt')
-            || ($Think.const.ACTION_NAME eq 'info_approve')
-            || ($Think.const.ACTION_NAME eq 'info_approve_cevt')
-            || ($Think.const.ACTION_NAME eq 'info_ku_cevt')
-            || ($Think.const.ACTION_NAME eq 'detail_approve')
-            || ($Think.const.ACTION_NAME eq 'detail_approve_cevt')">active</if>">
+            <li class="nav-item <if condition="($Think.const.ACTION_NAME eq 'info_ku')">active</if>">
                 <a href="javascript:;" class="nav-link nav-toggle">
                     <i class="icon-wrench"></i>
-                    <span class="title">PFMEA系统管理</span>
+                    <span class="title">发货单管理</span>
                     <span class="selected"></span>
                     <span class="arrow open"></span>
                 </a>
                 <ul class="sub-menu">
-                    <li class="nav-item <if condition="($Think.const.ACTION_NAME eq 'info_ku_current')">active</if>">
-                        <a href="/index/info_ku_current" class="nav-link ">
-                            <i class="icon-bar-chart"></i>
-                            <span class="title">当前版本查询</span>
-                            <span class="selected"></span>
-                        </a>
-                    </li>
-                    <li class="nav-item <if condition="($Think.const.ACTION_NAME eq 'info_ku_current_cevt')">active</if>">
-                    <a href="/index/info_ku_current_cevt" class="nav-link ">
-                        <i class="icon-bar-chart"></i>
-                        <span class="title">当前版本查询-CEVT</span>
-                        <span class="selected"></span>
-                    </a>
-                    </li>
-                    <li class="nav-item <if condition="($Think.const.ACTION_NAME eq 'info_ku_history')">active</if>">
-                        <a href="/index/info_ku_history" class="nav-link ">
-                            <i class="icon-bar-chart"></i>
-                            <span class="title">历史版本查询</span>
-                            <span class="selected"></span>
-                        </a>
-                    </li>
-                    <li class="nav-item <if condition="($Think.const.ACTION_NAME eq 'info_ku_history_cevt')">active</if>">
-                    <a href="/index/info_ku_history_cevt" class="nav-link ">
-                        <i class="icon-bar-chart"></i>
-                        <span class="title">历史版本查询-CEVT</span>
-                        <span class="selected"></span>
-                    </a>
-                    </li>
                     <li class="nav-item <if condition="($Think.const.ACTION_NAME eq 'info_ku')">active</if> ">
                         <a href="/index/info_ku" class="nav-link ">
                             <i class="icon-bar-chart"></i>
-                            <span class="title">编制</span>
-                            <span class="selected"></span>
-                        </a>
-                    </li>
-                    <li class="nav-item <if condition="($Think.const.ACTION_NAME eq 'info_ku_cevt')">active</if> ">
-                        <a href="/index/info_ku_cevt" class="nav-link ">
-                            <i class="icon-bar-chart"></i>
-                            <span class="title">编制-CEVT</span>
-                            <span class="selected"></span>
-                        </a>
-                    </li>
-                    <li class="nav-item <if condition="($Think.const.ACTION_NAME eq 'info_approve')">active</if> ">
-                        <a href="/index/info_approve" class="nav-link ">
-                            <i class="icon-bar-chart"></i>
-                            <span class="title">审批编制</span>
-                            <span class="selected"></span>
-                        </a>
-                    </li>
-                    <li class="nav-item <if condition="($Think.const.ACTION_NAME eq 'info_approve_cevt')">active</if> ">
-                    <a href="/index/info_approve_cevt" class="nav-link ">
-                        <i class="icon-bar-chart"></i>
-                        <span class="title">审批编制-CEVT</span>
-                        <span class="selected"></span>
-                    </a>
-                    </li>
-                    <li class="nav-item start <if condition="($Think.const.CONTROLLER_NAME eq 'Template')">active</if>">
-                        <a href="/template/index" class="nav-link ">
-                            <i class="icon-bar-chart"></i>
-                            <span class="title">信息库维护</span>
-                            <span class="selected"></span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#" onclick="alert('该功能暂未开发！')" class="nav-link ">
-                            <i class="icon-bar-chart"></i>
-                            <span class="title">质量信息录入</span>
+                            <span class="title">发货单列表</span>
                             <span class="selected"></span>
                         </a>
                     </li>
                 </ul>
             </li>
-
-            <!-- 风险系数 -->
-            <li class="nav-item">
-                <a href="javascript:;" class="nav-link nav-toggle">
-                    <i class="icon-bulb"></i>
-                    <span class="title">风险系数</span>
-                    <span class="selected"></span>
-                    <span class="arrow open"></span>
-                </a>
-                <ul class="sub-menu">
-                    <li class="nav-item">
-                        <a href="#" class="nav-link ">
-                            <i class="icon-bar-chart"></i>
-                            <span class="title">当前RPN报表</span>
-                            <span class="selected"></span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link ">
-                            <i class="icon-bar-chart"></i>
-                            <span class="title">历史RPN报表</span>
-                            <span class="selected"></span>
-                        </a>
-                    </li>
-                </ul>
-            </li>
-
-            <!-- 控制计划管理 -->
-            <li class="nav-item">
-                <a href="javascript:;" class="nav-link nav-toggle">
-                    <i class="icon-feed"></i>
-                    <span class="title">控制计划管理</span>
-                    <span class="selected"></span>
-                    <span class="arrow open"></span>
-                </a>
-                <ul class="sub-menu">
-                    <li class="nav-item">
-                        <a href="#" class="nav-link ">
-                            <i class="icon-bar-chart"></i>
-                            <span class="title">当前版本查询</span>
-                            <span class="selected"></span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link ">
-                            <i class="icon-bar-chart"></i>
-                            <span class="title">历史版本查询</span>
-                            <span class="selected"></span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link ">
-                            <i class="icon-bar-chart"></i>
-                            <span class="title">编制</span>
-                            <span class="selected"></span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link ">
-                            <i class="icon-bar-chart"></i>
-                            <span class="title">信息库维护</span>
-                            <span class="selected"></span>
-                        </a>
-                    </li>
-                </ul>
-            </li>
-
-
-            <!-- 过程流程图管理 -->
-            <li class="nav-item">
-                <a href="javascript:;" class="nav-link nav-toggle">
-                    <i class="icon-paper-plane"></i>
-                    <span class="title">过程流程图管理</span>
-                    <span class="selected"></span>
-                    <span class="arrow open"></span>
-                </a>
-                <ul class="sub-menu">
-                    <li class="nav-item">
-                        <a href="#" class="nav-link ">
-                            <i class="icon-bar-chart"></i>
-                            <span class="title">查询</span>
-                            <span class="selected"></span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link ">
-                            <i class="icon-bar-chart"></i>
-                            <span class="title">编制</span>
-                            <span class="selected"></span>
-                        </a>
-                    </li>
-                </ul>
-            </li>
-
-            <!---->
-            <li class="nav-item">
-                <a href="javascript:;" class="nav-link nav-toggle">
-                    <i class="icon-docs"></i>
-                    <span class="title">作业指导书管理</span>
-                    <span class="selected"></span>
-                    <span class="arrow open"></span>
-                </a>
-                <ul class="sub-menu">
-                    <li class="nav-item">
-                        <a href="#" class="nav-link ">
-                            <i class="icon-bar-chart"></i>
-                            <span class="title">查询</span>
-                            <span class="selected"></span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link ">
-                            <i class="icon-bar-chart"></i>
-                            <span class="title">编制</span>
-                            <span class="selected"></span>
-                        </a>
-                    </li>
-                </ul>
-            </li>
-
-            <!--ME体系文件-->
-            <li class="nav-item">
-                <a href="javascript:;" class="nav-link nav-toggle">
-                    <i class="icon-docs"></i>
-                    <span class="title">ME体系文件</span>
-                    <span class="selected"></span>
-                    <span class="arrow open"></span>
-                </a>
-                <ul class="sub-menu">
-                    <li class="nav-item">
-                        <a href="#" class="nav-link ">
-                            <i class="icon-bar-chart"></i>
-                            <span class="title">ME管理文件</span>
-                            <span class="selected"></span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link ">
-                            <i class="icon-bar-chart"></i>
-                            <span class="title">ME体系程序文件</span>
-                            <span class="selected"></span>
-                        </a>
-                    </li>
-                </ul>
-            </li>
-
-            <!-- 系统管理 -->
             <li class="nav-item <if condition="($Think.const.CONTROLLER_NAME eq 'Member') || ($Think.const.CONTROLLER_NAME eq 'Relation') || ($Think.const.CONTROLLER_NAME eq 'Category') || ($Think.const.CONTROLLER_NAME eq 'Operate')">active</if>">
                 <a href="javascript:;" class="nav-link nav-toggle">
                     <i class="icon-settings"></i>
@@ -264,45 +41,13 @@
                     <span class="arrow open"></span>
                 </a>
                 <ul class="sub-menu">
-                    <?php if($user_access['u_add'] == 1) : ?>
-                        <li class="nav-item <if condition="($Think.const.CONTROLLER_NAME eq 'Member') && ($Think.const.ACTION_NAME eq 'lists')">active</if>">
-                            <a href="/member/lists" class="nav-link ">
-                                <i class="icon-user"></i>
-                                <span class="title">用户管理</span>
-                                <span class="selected"></span>
-                            </a>
-                        </li>
-                        <li class="nav-item <if condition="($Think.const.CONTROLLER_NAME eq 'Relation') && ($Think.const.ACTION_NAME eq 'index')">active</if>">
-                            <a href="/relation/index" class="nav-link ">
-                                <i class="icon-user"></i>
-                                <span class="title">人员关系管理</span>
-                                <span class="selected"></span>
-                            </a>
-                        </li>
-
-                        <li class="nav-item <if condition="($Think.const.CONTROLLER_NAME eq 'Operate') && ($Think.const.ACTION_NAME eq 'lists')">active</if>">
-                            <a href="/operate/lists" class="nav-link ">
-                                <i class="icon-user"></i>
-                                <span class="title">操作日志</span>
-                                <span class="selected"></span>
-                            </a>
-                        </li>
-                    <?php else: ?>
-                        <li class="nav-item <if condition="($Think.const.ACTION_NAME eq 'lists')">active</if>">
-                            <a href="javascript:" onclick="alert('你没有管理权限，请联系管理员！')" class="nav-link ">
-                                <i class="icon-user"></i>
-                                <span class="title">用户管理</span>
-                                <span class="selected"></span>
-                            </a>
-                        </li>
-                        <li class="nav-item <if condition="($Think.const.ACTION_NAME eq 'lists')">active</if>">
-                            <a href="javascript:" onclick="alert('你没有管理权限，请联系管理员！')" class="nav-link ">
-                                <i class="icon-user"></i>
-                                <span class="title">人员关系管理</span>
-                                <span class="selected"></span>
-                            </a>
-                        </li>
-                    <?php endif; ?>
+                    <li class="nav-item <if condition="($Think.const.CONTROLLER_NAME eq 'Member') && ($Think.const.ACTION_NAME eq 'lists')">active</if>">
+                        <a href="/member/lists" class="nav-link ">
+                            <i class="icon-user"></i>
+                            <span class="title">用户管理</span>
+                            <span class="selected"></span>
+                        </a>
+                    </li>
                     <li class="nav-item <if condition="($Think.const.CONTROLLER_NAME eq 'Category')">active</if>">
                         <a href="/category/index" class="nav-link ">
                             <i class="icon-user"></i>
