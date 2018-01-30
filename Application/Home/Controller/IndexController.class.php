@@ -132,42 +132,7 @@ class IndexController extends BaseController
         $this->display();
     }
 
-    /**
-     * 审批编制详情页CEVT
-     */
-    public function detail_approve_cevt()
-    {
-        $id = I('get.id');
-
-        //判断权限
-        $acc_arr = json_decode($this->userInfo['access'],true);
-        if($acc_arr['b_add'] != 1){
-            $this->error('对不起，你没有权限操作，请联系管理员！');
-        }
-
-        if($id){
-            $info = M('info_cevt')->where(['id'=>$id])->find();
-            $this->assign('info',$info);
-            //获取车型id
-            $third_name = M('category')->where(['id'=>$info['category_id']])->field('parent_id,name')->find();
-            $names['third'] = $third_name['name'];
-            //获取车型的父类id
-            $second_name = M('category')->where(['id'=>$third_name['parent_id']])->field('parent_id,name')->find();
-            $names['second'] = $second_name['name'];
-            //获取车型的父类id的父类id
-            $first_name = M('category')->where(['id'=>$second_name['parent_id']])->field('name')->find();
-            $names['first'] = $first_name['name'];
-            $this->assign('names',$names);
-            $lists = M('info_extend_cevt')->where(['info_id'=>$id])->select();
-            $this->assign('lists',$lists);
-        }
-
-        //主分类
-        $category = M('category')->where(['parent_id' => 1])->select();
-        $this->assign('category', $category);
-
-        $this->display();
-    }
+    
 
     /**
      * 保存编制信息
