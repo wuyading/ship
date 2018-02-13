@@ -29,11 +29,11 @@
                     <div class="page-bar" style="width:1512px;">
                         <ul class="page-breadcrumb">
                             <li>
-                                <a href="welcome.html">PFMEA系统管理</a>
+                                <a href="welcome.html">发货单管理</a>
                                 <i class="fa fa-circle"></i>
                             </li>
                             <li>
-                                <span>添加编制信息</span>
+                                <span>添加发货单</span>
                             </li>
                         </ul>
                         <a style="margin:20px;margin-top:5px;" class="btn btn-primary" href="javascript:history.go(-1);">返回</a>
@@ -426,72 +426,6 @@
                 </tr>
             </table>
         </div>
-        <div id="severity_show" style="width:200px;height:400px;font-size:12px;background: red;position:absolute;display: none;padding:10px;">
-            10：不符合安全和/或法规要求：可能在没有预警下危害操作者（机械或装配）<br/>
-            9：不符合安全和/或法规要求：可能在预警下危害操作者（机械或装配）<br/>
-            8：大规模中断：100%产品可能报废。流水线停止或停止出货。<br/>
-            7：显著中断：生产运行的一部分产品可能报废。背离最初过程设计；流水线速度降低或增加人力。<br/>
-            6：离开工位返工：100%产品需要线下返工后才可被接受的。<br/>
-            5：离开工位返工：一部分产品需要线下返工后才可被接受的。<br/>
-            4：工位内返工：在加工前，100%产品需要在工位内返工。<br/>
-            3：工位内返工：在加工前，一部分产品需要在工位内返工。<br/>
-            2：微小的中断：过程、操作或操作中的轻微不便利<br/>
-            1：没有影响：没有可辨别的影响
-        </div>
-
-        <div id="happen_show" style="width:200px;height:200px;font-size:12px;background: red;position:absolute;display: none;padding:10px;">
-            10：非常高：≥1次每10辆 <br/>
-            9：高：1次每20辆 <br/>
-            8：高：1次每50辆<br/>
-            7：高：1次每100辆<br/>
-            6：中等：1次每500辆<br/>
-            5：中等：1次每2000辆<br/>
-            4：中等：1次每10000辆<br/>
-            3：低：1次每100000辆<br/>
-            2：低：1次每1000000辆<br/>
-            1：非常低：通过预防控制消除了失效
-        </div>
-
-        <div id="detect_show" style="width:310px;height:500px;font-size:12px;background: red;position:absolute;display: none;padding:10px;">
-            10：几乎不可能：没有现有过程控制；无法探测或未能分析。<br/>
-            9：难以探测：失效模式和/或错误（要因）不容易探测（如随机检查）<br/>
-            8：后处理探测：操作者通过目测/排列/耳听的方式，错误发生后进行失效模式探测。<br/>
-            7：问题来源探测：操作者在工位上通过目测/排列/耳听的方式，做失效模式探测或操作者通过特性测量（行/不行、手动转矩检查等）进行事后失效模式探测。<br/>
-            6：后处理探测：操作者通过变量测量或在工位上通过特性测量（行/不行、手动转矩检查等）进行事后失效模式探测。<br/>
-            5：问题来源探测：操作者在工位上使用变量测量或通过工位上的自动控制探测差异零件并通知操作者（光、杂音等）。在设置上或首件检验时执行测量（仅对于设置要因）。<br/>
-            4：后处理探测：由工位的自动控制探测异常件并自动锁住零部件，预防进一步加工的事后失效模式探测。<br/>
-            3：问题来源探测：由工位上的自动控制探测异常件并在位置上自动锁住零部件，预防进一步加工的失效模式探测。<br/>
-            2：错误探测和/或问题预防：由自动控制在工位上探测错误并预防制造中异常件产出的错误（要因）探测。<br/>
-            1：探测不能用；防错：以夹具设计、机械设计或零件设计所做的错误（要因）预防。因为过程/产品设计的防错项目，不会产生异常件。<br/>
-        </div>
-
-
-        <script type="text/javascript">
-            $(".show_detail").mousemove(function(){
-                $("#severity_show").show();
-                $("#severity_show").css("left",$(document).scrollLeft()+event.clientX-220);
-                $("#severity_show").css("top",$(document).scrollTop()+event.clientY+10);
-                $("#severity_show").css("background-color","#EAEAAE ");
-            });
-
-            $(".show_detail").mouseleave(function(){
-                $("#severity_show").hide();
-            });
-        </script>
-
-        <script type="text/javascript">
-            $(".show_happen").mousemove(function(){
-                $("#happen_show").show();
-                $("#happen_show").css("left",$(document).scrollLeft()+event.clientX-220);
-                $("#happen_show").css("top",$(document).scrollTop()+event.clientY+10);
-                $("#happen_show").css("background-color","#EAEAAE ");
-            });
-
-            $(".show_happen").mouseleave(function(){
-                $("#happen_show").hide();
-            });
-        </script>
-
         <script type="text/javascript">
             $(".show_detect").mousemove(function(){
                 $("#detect_show").show();

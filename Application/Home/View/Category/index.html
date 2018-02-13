@@ -66,8 +66,8 @@
                                         <td><?=$row['id']?></td>
                                         <td><?=$row['name']?></td>
                                         <td>
-                                            <a class="btn btn-warning" onclick="update_cate(<?=$row['id']?>,0,'<?=$row['name']?>')">修改</a>
-                                            <a class="btn btn-warning" onclick="delete_cate(<?=$row['id']?>,0,'<?=$row['name']?>')">删除</a>
+                                            <a class="btn btn-primary" onclick="update_cate(<?=$row['id']?>,0,'<?=$row['name']?>')">修改</a>
+                                            <a class="btn btn-danger" onclick="delete_cate(<?=$row['id']?>,0,'<?=$row['name']?>')">删除</a>
                                         </td>
                                     </tr>
 
@@ -220,18 +220,33 @@
         }
 
         $(".save_category").click(function () {
-            if(confirm('确定提交保存吗？')){
-                var data = $("#save_form").serialize();
-                $.post('/category/ajax_save',data,function (res) {
-                    if(res.status == 1001){
-                        alert(res.message);
-                        $('.add_info').modal('hide');
-                        window.location.reload();
-                    }else{
-                        alert(res.message);
-                    }
-                },'json');
-            }
+            var data = $("#save_form").serialize();
+            $.post('/category/ajax_save',data,function (res) {
+                if(res.status == 1001){
+                    layer.alert(res.message, {
+                        icon: 6
+                        ,time: 0 //不自动关闭
+                        ,btn: ['确定']
+                        ,area: '200px'
+                        ,yes: function(index){
+                            layer.close(index);
+                            $('.add_info').modal('hide');
+                            window.location.reload();
+                        }
+                    });
+                }else{
+                    layer.alert(res.message, {
+                        icon: 0
+                        ,time: 0 //不自动关闭
+                        ,btn: ['确定']
+                        ,area: '200px'
+                        ,yes: function(index){
+                            layer.close(index);
+                            window.location.reload();
+                        }
+                    });
+                }
+            },'json');
         });
     </script>
     </body>

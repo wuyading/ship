@@ -31,7 +31,7 @@
                     <div class="page-bar">
                         <ul class="page-breadcrumb">
                             <li>
-                                <a href="welcome.html">PFMEA系统管理</a>
+                                <a href="welcome.html">发货单系统管理</a>
                                 <i class="fa fa-circle"></i>
                             </li>
                             <li>
@@ -44,32 +44,11 @@
                         <div class="col-md-12">
                             <!-- BEGIN EXAMPLE TABLE PORTLET-->
                             <div class="portlet light bordered">
-                                <div class="portlet-title">
-                                    <div class="caption font-dark">
-                                        <i class="icon-settings font-dark"></i>
-                                        <span class="caption-subject bold uppercase"> 信息库列表 </span>
-                                         > <span class="caption-subject">
-                                            <?php
-                                            if($is_history == 1){
-                                                echo '<i>编制</i>';
-                                            }elseif($is_history == 2){
-                                                echo '<i>历史版本查询</i>';
-                                            }elseif($is_history == 3){
-                                                echo '<i>当前版本查询</i>';
-                                            }
-                                            ?>
-                                        </span>
-                                    </div>
-                                </div>
                                 <div class="portlet-body">
                                     <div class="table-toolbar">
                                         <?php if($is_history == 1):?>
                                         <div style="margin: 15px 15px 15px 0;">
-                                            <?php if($user_access['b_add'] == 1):?>
-                                                <a class="btn btn-danger" href="/index/add?type=1">添加编制</a>
-                                            <?php else: ?>
-                                                <a class="btn btn-danger" onclick="alert('你没有操作权限，请联系管理员！')">添加编制</a>
-                                            <?php endif;?>
+                                                <a class="btn btn-danger" href="/index/add?type=1">添加发货单</a>
                                         </div>
                                         <?php endif;?>
                                         <div class="row">
@@ -107,36 +86,11 @@
                                                         <input type="text" class="form-control" name="project" value="<?=$search['project']?>" placeholder="请输入项目/功能名称">
                                                     </div>
                                                     <button type="submit" class="btn btn-primary"> 搜 索 </button>
-                                                    <?php if($is_history == 1):?>
                                                     <div style="margin-top: 15px;">
-                                                        <?php if($user_access['b_access'] == 1):?>
-                                                            <a class="btn btn-primary" id="mul_input" href="javascript:">批量导入</a>
-                                                        <?php else: ?>
-                                                            <a class="btn btn-primary" onclick="alert('你没有操作权限，请联系管理员！')" href="javascript:">批量导入</a>
-                                                        <?php endif;?>
+                                                        <a class="btn btn-primary" id="mul_input" href="javascript:">批量导入</a>
                                                         <a class="btn btn-primary" id="mul_output" href="javascript:">批量导出</a>
-                                                        <a class="btn btn-primary" id='suo_history' href="javascript:">锁定到历史</a>
-                                                        <a class="btn btn-primary" id='copy_process' href="javascript:">复制工序</a>
                                                         <a class="btn btn-danger" id='delete_process' href="javascript:">删除工序</a>
-
                                                     </div>
-                                                    <?php endif; ?>
-
-                                                    <?php if($is_history == 2):?>
-                                                    <div style="margin-top: 15px;">
-                                                        <a class="btn btn-primary" id='back_process' href="javascript:">版本回退</a>
-                                                        <a class="btn btn-danger" id='delete_process' href="javascript:">删除工序</a>
-
-                                                    </div>
-                                                    <?php endif; ?>
-
-                                                    <?php if($is_history == 3):?>
-                                                    <div style="margin-top: 15px;">
-
-                                                        <a class="btn btn-danger" id='delete_process' href="javascript:">删除工序</a>
-
-                                                    </div>
-                                                    <?php endif; ?>
                                                 </form>
                                             </div>
                                         </div>
@@ -146,21 +100,12 @@
                                             <thead>
                                             <tr>
                                                 <th style="max-width:none;"> 编号 </th>
-                                                <th> 工序名称 </th>
+                                                <th> 发货单名称 </th>
                                                 <th> 车间 </th>
                                                 <th> 基地 </th>
                                                 <th> 车型 </th>
                                                 <th> 更新日期 </th>
-                                                <?php if($is_history == 1 || $is_history == 2):?>
-                                                    <th> 其他 </th>
-                                                    <th> 是否完成 </th>
-                                                    <th>审批状态</th>
-                                                    <th> 选择 </th>
-                                                <?php endif; ?>
-
-                                                <?php if($is_history == 3):?>
                                                 <th> 选择 </th>
-                                                <?php endif; ?>
                                             </tr>
                                             </thead>
                                             <tbody>
@@ -174,16 +119,7 @@
                                                     <td> <?=$row['jidi_name']?> </td>
                                                     <td> <?=$row['chexing_name']?> </td>
                                                     <td> <?=$row['h_pfmea_end'] ? date('Y-m-d H:i',$row['h_pfmea_end']) : ''?> </td>
-                                                    <?php if($is_history == 1 || $is_history == 2):?>
-                                                        <td> &nbsp; </td>
-                                                        <td> &nbsp; </td>
-                                                        <td><?php if($row['is_approved']==1){ echo '未审批';}elseif($row['is_approved']==2){echo '已通过';}elseif($row['is_approved']==4){echo '已驳回';}else{echo '草稿箱';}?></td>
-                                                        <td><input type="checkbox" name="i_select[]" value="<?=$row['id']?>"></td>
-                                                    <?php endif; ?>
-
-                                                    <?php if($is_history == 3):?>
                                                     <td><input type="checkbox" name="i_select[]" value="<?=$row['id']?>"></td>
-                                                    <?php endif; ?>
                                                 </tr>
                                             <?php endforeach; ?>
                                             </tbody>

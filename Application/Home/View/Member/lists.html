@@ -77,8 +77,7 @@
                                         <?php endif;?>
                                     </td>
                                     <td>
-                                        <a href="javascript:" onclick="up_pwd(<?=$row['id']?>)" class="btn btn-primary">修改密码</a> |
-                                        <a href="javascript:" onclick="update_access(<?=$row['id']?>,this)" data-access='<?=$row["access"]?>' class="btn btn-primary">修改权限</a>
+                                        <a href="javascript:" onclick="up_pwd(<?=$row['id']?>)" class="btn btn-primary">修改密码</a>
                                         <a href="javascript:" onclick="delete_user(<?=$row['id']?>,this)" data-access='<?=$row["access"]?>' class="btn btn-danger">删除</a>
                                     </td>
                                 </tr>
@@ -126,42 +125,6 @@
             </div><!-- /.modal-dialog -->
         </div><!-- /修改密码的modal -->
 
-        <div class="modal fade update_access">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">关闭</span></button>
-                        <h4 class="modal-title">修改权限</h4>
-                    </div>
-                    <div class="modal-body">
-                        <form id="update_access_form" method="post" onsubmit="return false">
-                            <div>
-                                <label>编制</label>
-                                <div class="checkbox">
-                                    <label><input type="checkbox" name="b_access" class="b_access" value="1"> 批量导入 </label>
-                                </div>
-                                <div class="checkbox">
-                                    <label><input type="checkbox" name="b_add" class="b_add" value="1"> 添加编制 </label>
-                                </div>
-                            </div>
-
-                            <div>
-                                <label>用户管理</label>
-                                <div class="checkbox">
-                                    <label><input type="checkbox" name="u_add" class="u_add" value="1"> 添加用户 </label>
-                                </div>
-                            </div>
-                            <input type="hidden" name="m_id" id="m_id" value="">
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-primary save_update_access"> 保 存 </button>
-                        <button type="button" class="btn btn-default" data-dismiss="modal"> 关 闭 </button>
-                    </div>
-                </div><!-- /.modal-content -->
-            </div><!-- /.modal-dialog -->
-        </div><!-- /修改权限的modal -->
-
         <div class="modal fade add_user">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -189,30 +152,8 @@
                                     <td>
                                         <select name="group_id" class="form-control input-medium">
                                             <option value="1">超级管理员</option>
-                                            <option value="2">管理员</option>
-                                            <option value="3" selected >普通用户</option>
+                                            <option value="2" selected>管理员</option>
                                         </select>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>权限：</th>
-                                    <td>
-                                        <div>
-                                            <label>编制</label>
-                                            <div class="checkbox">
-                                                <label><input type="checkbox" name="b_access" class="b_access" value="1"> 批量导入 </label>
-                                            </div>
-                                            <div class="checkbox">
-                                                <label><input type="checkbox" name="b_add" class="b_add" value="1"> 添加编制 </label>
-                                            </div>
-                                        </div>
-
-                                        <div>
-                                            <label>用户管理</label>
-                                            <div class="checkbox">
-                                                <label><input type="checkbox" name="u_add" class="u_add" value="1"> 添加用户 </label>
-                                            </div>
-                                        </div>
                                     </td>
                                 </tr>
                             </table>
@@ -237,17 +178,33 @@
         }
 
             $(".save_pwd").click(function () {
-                if(confirm('确定提交吗？')){
                 var data = $("#pwd_form").serialize();
                 $.post('/member/ajax_save_user_pwd',data,function (res) {
                     if(res.status == 1001){
-                        alert(res.message);
-                        $('.up_pwd').modal('hide');
+                        layer.alert(res.message, {
+                            icon: 6
+                            ,time: 0 //不自动关闭
+                            ,btn: ['确定']
+                            ,area: '200px'
+                            ,yes: function(index){
+                                layer.close(index);
+                                $('.up_pwd').modal('hide');
+                                window.location.reload();
+                            }
+                        });
                     }else{
-                        alert(res.message);
+                        layer.alert(res.message, {
+                            icon: 0
+                            ,time: 0 //不自动关闭
+                            ,btn: ['确定']
+                            ,area: '200px'
+                            ,yes: function(index){
+                                layer.close(index);
+                                $('.up_pwd').modal('hide');
+                            }
+                        });
                     }
                 },'json');
-            }
         });
 
         //添加用户
@@ -257,18 +214,33 @@
         }
 
         $(".save_user").click(function () {
-            if(confirm('确定提交吗？')){
-                var data = $("#user_form").serialize();
-                $.post('/member/ajax_save_user',data,function (res) {
-                    if(res.status == 1001){
-                        alert(res.message);
-                        $('.up_pwd').modal('hide');
-                        window.location.reload();
-                    }else{
-                        alert(res.message);
-                    }
-                },'json');
-            }
+            var data = $("#user_form").serialize();
+            $.post('/member/ajax_save_user',data,function (res) {
+                if(res.status == 1001){
+                    layer.alert(res.message, {
+                        icon: 6
+                        ,time: 0 //不自动关闭
+                        ,btn: ['确定']
+                        ,area: '200px'
+                        ,yes: function(index){
+                            layer.close(index);
+                            $('.add_user').modal('hide');
+                            window.location.reload();
+                        }
+                    });
+                }else{
+                    layer.alert(res.message, {
+                        icon: 0
+                        ,time: 0 //不自动关闭
+                        ,btn: ['确定']
+                        ,area: '200px'
+                        ,yes: function(index){
+                            layer.close(index);
+                            $('.add_user').modal('hide');
+                        }
+                    });
+                }
+            },'json');
         });
 
         //删除用户
@@ -303,47 +275,35 @@
             });
         }
 
-        //修改权限
-        function update_access(id,obj) {
-            $("#m_id").val(id);
-            clear_checked();
-
-            var access = $(obj).attr('data-access');
-            if(access){
-                var data = eval("("+access+")");
-
-                if(data){
-                    if(data.b_access == 1){
-                        $("#update_access_form").find('.b_access').prop('checked',true);
-                        $("#update_access_form").find('.b_access').parent().attr('class','checked');
-                    }
-                    if(data.b_add == 1){
-                        $("#update_access_form").find('.b_add').prop('checked',true);
-                        $("#update_access_form").find('.b_add').parent().attr('class','checked');
-                    }
-                    if(data.u_add == 1){
-                        $("#update_access_form").find('.u_add').prop('checked',true);
-                        $("#update_access_form").find('.u_add').parent().attr('class','checked');
-                    }
-                }
-            }
-
-            $('.update_access').modal('show');
-        }
-
         $(".save_update_access").click(function () {
-            if(confirm('确定提交吗？')){
-                var data = $("#update_access_form").serialize();
-                $.post('/member/ajax_save_access',data,function (res) {
-                    if(res.status == 1001){
-                        alert(res.message);
-                        $('.up_pwd').modal('hide');
-                        window.location.reload();
-                    }else{
-                        alert(res.message);
-                    }
-                },'json');
-            }
+            var data = $("#update_access_form").serialize();
+            $.post('/member/ajax_save_access',data,function (res) {
+                if(res.status == 1001){
+                    layer.alert(res.message, {
+                        icon: 6
+                        ,time: 0 //不自动关闭
+                        ,btn: ['确定']
+                        ,area: '200px'
+                        ,yes: function(index){
+                            layer.close(index);
+                            $('.up_pwd').modal('hide');
+                            window.location.reload();
+                        }
+                    });
+
+                }else{
+                    layer.alert(res.message, {
+                        icon: 0
+                        ,time: 0 //不自动关闭
+                        ,btn: ['确定']
+                        ,area: '200px'
+                        ,yes: function(index){
+                            layer.close(index);
+                            window.location.reload();
+                        }
+                    });
+                }
+            },'json');
         });
 
         function clear_checked() {
